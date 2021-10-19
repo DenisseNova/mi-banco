@@ -20,7 +20,7 @@ const config = {
 
 const pool = new Pool(config);
 
-if ( movimiento == 'transaccion') {
+if ( movimiento == 'transaccion') { //node script.js nuevaTransaca 1 2 1000
   pool.connect( async (error_conexion, client, release) => {
 
     if(error_conexion) {
@@ -59,7 +59,7 @@ if ( movimiento == 'transaccion') {
   })
 }
 
-if (movimiento == 'consulta') {
+if (movimiento == 'consulta') { //node script.js consulta
 
   pool.connect(async (error_conexion, client, release) => {
     if (error_conexion) console.error(error_conexion.code);
@@ -73,5 +73,22 @@ if (movimiento == 'consulta') {
       release();
       pool.end();
     });
+  });
+};
+
+if (movimiento == 'saldo') { //node script.js saldo 1
+
+  pool.connect(async (error_conexion, client, release) => {
+      if (error_conexion) console.error(error_conexion.code);
+
+      const saldo = new Cursor (`SELECT * FROM cuentas WHERE id = ${cuenta_1}`);
+      const cursor = client.query (saldo);
+
+      cursor.read (1, (err, rows) => {
+          console.log (`El saldo correspondiente de ${rows[0].id} es: $ ${rows[0].saldo}.-`);
+          cursor.close();
+          release();
+          pool.end();
+      });
   });
 };
