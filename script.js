@@ -58,3 +58,20 @@ if ( movimiento == 'transaccion') {
       
   })
 }
+
+if (movimiento == 'consulta') {
+
+  pool.connect(async (error_conexion, client, release) => {
+    if (error_conexion) console.error(error_conexion.code);
+
+    const consultar = new Cursor (`SELECT * FROM transacciones`);
+    const cursor = client.query (consultar);
+
+    cursor.read (10, (err, rows) => {
+      console.log (rows);
+      cursor.close();
+      release();
+      pool.end();
+    });
+  });
+};
