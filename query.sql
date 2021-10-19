@@ -1,8 +1,10 @@
 DROP TABLE public.cuentas;
 DROP TABLE public.transacciones;
 
-CREATE​ ​TABLE​ public.cuentas (​id​ ​INT​, saldo ​DECIMAL​ ​CHECK​ (saldo >= ​0​));
-INSERT​ ​INTO​ public.cuentas ​values​ (​1​, ​20000​);
+CREATE TABLE public.cuentas (
+	id int4 NULL,
+	saldo decimal NULL (saldo >= ​0​)
+);
 
 CREATE TABLE public.transacciones (
 	descripcion varchar(50) NULL,
@@ -10,3 +12,5 @@ CREATE TABLE public.transacciones (
 	monto decimal NULL,
 	cuenta int4 NULL
 );
+
+INSERT​ ​INTO​ public.cuentas ​values​ (​1​, ​20000​);
